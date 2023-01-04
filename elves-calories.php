@@ -28,15 +28,17 @@ function dd($data){
             $inventory = 0;
             $biggest_inventory = 0;
             foreach(preg_split("/((\r?\n)|(\r\n?))/", fread($file, filesize($file_name))) as $line){
-                if(PHP_EOL){
+                if($line == ""){
+                    // die();
                     // echo 'if working';
-                    if ($inventory < $biggest_inventory){
-                        $inventory = $biggest_inventory;
+                    if ( $biggest_inventory < $inventory){
+                        $biggest_inventory = $inventory;
                     }
                     $inventory = 0;
                 } else {
                     // echo 'now my else works';
-                    $inventory = $inventory + $line;
+                    $inventory += $line;
+                    // dd($inventory);
                 }
             } 
         
@@ -46,23 +48,32 @@ function dd($data){
             $inventory = 0;
             $inventory_list = [];
             foreach (preg_split("/((\r?\n)|(\r\n?))/", fread($file, filesize($file_name))) as $line) {
-                if(PHP_EOL){
+                // if(("/((\r?\n)|(\r\n?))/")){
+                if(($line === "")){
+                    // echo ' lol ';
+                    // dd($line);
                     array_push($inventory_list, $inventory);
+                    // dd($line);
                     $inventory = 0;
                 }
+
                 else {
+                    // echo 'ITS NOT ON';
                     $inventory += $line;
+                    // dd($inventory);
                 }
-                return $sum_top_inventories = array_sum($inventory_list);
+                            
             }   
         }
         ?> 
-        <?php 
+        <?php
+        // echo empty(task1($myInput, "input"));
         // dd(task1($myInput, "input"));
-        // task1($myInput, "input");
-        // task2($myInput, "input"); ?>
-        <h1>Task number 1 result: <?php echo task1($myInput, "input") ; ?></h1>
-        <h1>Task number 2 result: <?php echo task2($myInput, "input") ; ?></h1>
+
+        echo task1($myInput, "input"); ?><br><?php # Task 1 completed
+        echo task2($myInput, "input"); ?>
+        <!-- <h1>Task number 1 result: <?php echo task1($myInput, "input") ; ?></h1> -->
+        <!-- <h1>Task number 2 result: <?php echo task2($myInput, "input") ; ?></h1> -->
       
     </body>
 </html>
